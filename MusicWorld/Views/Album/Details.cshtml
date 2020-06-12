@@ -1,0 +1,64 @@
+﻿@model MusicWorld.Models.Albums.AlbumsDetailViewModel
+
+@{
+    ViewData["Title"] = "Detail album";
+}
+
+<h1>Personal information of performer</h1>
+
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.AlbumInformation.Name)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.AlbumInformation.Name)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.AlbumInformation.PerformerName)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.AlbumInformation.PerformerName)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.AlbumInformation.DateOfRelease)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.AlbumInformation.DateOfRelease)
+    </dd>
+</dl>
+
+<br />
+
+<hr />
+
+
+@if (Model.Songs == null || Model.Songs.Count == 0)
+{
+    <h3>This album contains no songs</h3>
+}
+else
+{
+    <dl class="row">
+        <dt class="col-sm-2">
+            This album's songs
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var song in Model.Songs)
+            {
+                <p>
+                    <a asp-controller="Song" asp-action="Details" asp-route-id="@song.Id">@song.Name</a>
+                     (@song.Duration min)
+                </p>
+            }
+
+        </dd>
+    </dl>
+}
+
+<br />
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.AlbumInformation.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

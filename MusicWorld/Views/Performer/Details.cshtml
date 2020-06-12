@@ -1,0 +1,54 @@
+﻿@model MusicWorld.Models.Performers.PerformersDetailViewModel
+
+@{
+    ViewData["Title"] = "DetailPerformer";
+}
+
+<h1>Personal performer information</h1>
+
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.PerformerInformation.Name)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.PerformerInformation.Name)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.PerformerInformation.Description)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.PerformerInformation.Description)
+    </dd>
+</dl>
+
+<br />
+
+<h1>Albums -> Songs</h1>
+<hr />
+<br />
+
+<dl class="row">
+
+    @foreach (var album in Model.Albums)
+    {
+        <dt class="col-sm-2">
+            <a asp-controller="Album" asp-action="Details" asp-route-id="@album.AlbumInformation.Id">@album.AlbumInformation.Name</a>
+            <br />
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var song in album.Songs)
+            {
+                <p>
+                    <a asp-controller="Song" asp-action="Details" asp-route-id="@song.Id">@song.Name</a>
+                     (@song.Duration min)
+                </p>
+            }
+        </dd>
+    }
+</dl>
+
+<br />
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PerformerInformation.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,42 @@
+﻿@model MusicWorld.Models.Songs.SongsDetailViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<hr />
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SongInformation.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SongInformation.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SongInformation.Duration)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SongInformation.Duration)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SongInformation.AlbumName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SongInformation.AlbumName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SongInformation.PerformerName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SongInformation.PerformerName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.SongInformation.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

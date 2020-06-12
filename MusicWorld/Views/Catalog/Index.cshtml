@@ -1,0 +1,83 @@
+﻿@model MusicWorld.Models.Catalogs.CatalogsAllViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@if (this.User.IsInRole("Admin"))
+{
+    <h1>All catalogs</h1>
+
+}
+else if (this.User.IsInRole("User"))
+{
+    <h1>Your catalogs</h1>
+
+}
+
+<p>
+    <a asp-action="Create">Create new catalog</a>
+</p>
+
+
+<form asp-action="Index">
+    <div class="row">
+        <div class="col-md-4">
+            <input asp-for="SearchWord" placeholder="Search catalog ..." class="form-control" />
+        </div>
+        <div class="col-md-1">
+            <input type="submit" value="Search" class="btn btn-info" />
+        </div>
+
+    </div>
+</form>
+
+<br />
+
+@if (Model.Catalogs != null && Model.Catalogs.Count != 0)
+{
+
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th>
+                    Catalog name
+                </th>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Count of songs
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Catalogs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MyUserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SongsCount)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <br />
+    <div class="text-center text-black-50 font-italic w-10" style="font:40px Arial">Nothing to display</div>
+}

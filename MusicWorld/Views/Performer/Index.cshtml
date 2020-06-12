@@ -1,0 +1,78 @@
+﻿@model MusicWorld.Models.Performers.PerformersAllViewModel
+
+@{
+    ViewData["Title"] = "AllPerformers";
+}
+
+<h1>All performers</h1>
+@if (this.User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Create new performer</a>
+    </p>
+}
+
+<form asp-action="Index">
+    <div class="row">
+        <div class="col-md-4">
+            <input asp-for="SearchWord" placeholder="Search performer ..." class="form-control" />
+        </div>
+        <div class="col-md-1">
+            <input type="submit" value="Search" class="btn btn-info" />
+        </div>
+
+    </div>
+</form>
+
+<br />
+
+@if (Model.Performers != null && Model.Performers.Count != 0)
+{
+
+    <table class="table text-center">
+        <thead>
+            <tr>
+
+                <th>
+                    Name
+                </th>
+                <th>
+                    Count of Albums
+                </th>
+                <th>
+                    Count of Songs
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Performers)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AlbumsNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SongsNumber)
+                    </td>
+
+
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <br />
+    <div class="text-center text-black-50 font-italic w-10" style="font:40px Arial">Nothing to display</div>
+}
